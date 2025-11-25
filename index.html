@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SkyPix – Glass Door Landing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="scene">
+    <!-- Background slideshow (fixed-size cosmic wallpaper) -->
+    <div class="bg-slideshow">
+      <div class="bg-slide is-active" style="background-image: url('images/bg1.jpg');"></div>
+      <div class="bg-slide" style="background-image: url('images/bg2.jpg');"></div>
+    </div>
+
+    <!-- Frosted glass wall with four doors -->
+    <div class="frosted-wall">
+      <div class="wall-inner">
+        <div class="gap gap-outer"></div>
+
+        <div class="frame frame-1">
+          <button class="door door-1" data-room="Explore">
+            <span class="door-label">Explore</span>
+          </button>
+        </div>
+
+        <div class="gap gap-middle"></div>
+
+        <div class="frame frame-2">
+          <button class="door door-2" data-room="Engage">
+            <span class="door-label">Engage</span>
+          </button>
+        </div>
+
+        <div class="gap gap-middle"></div>
+
+        <div class="frame frame-3">
+          <button class="door door-3" data-room="Enhance">
+            <span class="door-label">Enhance</span>
+          </button>
+        </div>
+
+        <div class="gap gap-middle"></div>
+
+        <div class="frame frame-4">
+          <button class="door door-4" data-room="Exhibit">
+            <span class="door-label">Exhibit</span>
+          </button>
+        </div>
+
+        <div class="gap gap-outer"></div>
+      </div>
+    </div>
+
+    <!-- Cosmic room overlay (placeholder content for now) -->
+    <div class="room-overlay" aria-hidden="true">
+      <div class="room-content">
+        <h1 class="room-title"></h1>
+        <p class="room-subtitle">
+          Placeholder “cosmic room” content. This will become the Explore / Engage / Enhance /
+          Exhibit spaces with gradient-masked text blocks for readability.
+        </p>
+        <button class="room-exit">Back to Doors</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
