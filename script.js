@@ -15,7 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     slideIndex = nextIndex;
   }
-
+  <div class="bg-slideshow">
+    <div class="bg-slide is-active" style="background-image: url('images/bg1.jpg');"></div>
+    <div class="bg-slide" style="background-image: url('images/bg2.jpg');"></div>
+    <div class="bg-slide" style="background-image: url('images/bg3.jpg');"></div>
+  </div>
   function startSlideshow() {
     if (slideshowTimer || slideshowFrozen || slides.length <= 1) return;
     slideshowTimer = setInterval(() => {
@@ -108,3 +112,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 650);
   });
 });
+
