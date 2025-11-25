@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let slideIndex = 0;
   let slideshowTimer = null;
   let slideshowFrozen = false;
-  const slideDelay = 12000; // 12s between fades
+  const slideDelay = 6000; // 12s between fades
 
   function showSlide(nextIndex) {
     slides.forEach((slide, i) => {
@@ -101,3 +101,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 600);
   });
 });
+
