@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let slideIndex = 0;
   let slideshowTimer = null;
   let slideshowFrozen = false;
-  const slideDelay = 5000;
+  const slideDelay = 12000; // 12s between fades
 
   function showSlide(nextIndex) {
     slides.forEach((slide, i) => {
@@ -15,11 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     slideIndex = nextIndex;
   }
-  <div class="bg-slideshow">
-    <div class="bg-slide is-active" style="background-image: url('images/bg1.jpg');"></div>
-    <div class="bg-slide" style="background-image: url('images/bg2.jpg');"></div>
-    <div class="bg-slide" style="background-image: url('images/bg3.jpg');"></div>
-  </div>
+
   function startSlideshow() {
     if (slideshowTimer || slideshowFrozen || slides.length <= 1) return;
     slideshowTimer = setInterval(() => {
@@ -40,11 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     stopSlideshow();
   }
 
-  // kick off slideshow if there is more than one slide
-  if (slides.length) {
-    slides[0].classList.add('is-active');
-    startSlideshow();
-  }
+  // begin slideshow on load
+  startSlideshow();
 
   /* --- Door interactions & zoom-through-door --- */
 
@@ -60,56 +53,51 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isTransitioning) return;
       isTransitioning = true;
 
-      // freeze slideshow so current image becomes the room wallpaper
+      // Freeze slideshow so current cosmic wallpaper becomes that room's fixed background
       freezeSlideshow();
 
       const roomName = door.dataset.room || '';
       roomTitle.textContent = roomName ? roomName + ' Room' : 'Room';
 
-      // set transform origin for this door
+      // Clear any previous door-origin classes, then set the one for this door
       scene.classList.remove('room-open-1', 'room-open-2', 'room-open-3', 'room-open-4');
       const doorNumber = index + 1;
       scene.classList.add('room-open-' + doorNumber);
 
-      // slide chosen door left a bit
+      // Start zooming wall outward, centered on this door
+      scene.classList.add('room-opening');
+
+      // Slide the clicked door left, but keep it in view
       doors.forEach(d => d.classList.remove('door-slide'));
       door.classList.add('door-slide');
 
-      // start zooming wall outward through this door
-      scene.classList.add('room-opening');
-
-      // after zoom completes, hide wall + show room overlay
+      // After zoom completes, reveal the room overlay (wall is now offscreen)
       setTimeout(() => {
-        scene.classList.add('wall-hidden');
         scene.classList.add('room-active');
         roomOverlay.setAttribute('aria-hidden', 'false');
         isTransitioning = false;
-      }, 1100); // matches .frosted-wall transition
+      }, 1100); // should match CSS transition duration on .frosted-wall
     });
   });
 
-  // Exit back to doors
+  // Exit back to the door wall
   roomExit.addEventListener('click', () => {
     if (isTransitioning) return;
     isTransitioning = true;
 
-    // show wall again
-    scene.classList.remove('room-active');
-    scene.classList.remove('wall-hidden');
-    scene.classList.remove('room-opening');
+    scene.classList.remove('room-active', 'room-opening');
     doors.forEach(d => d.classList.remove('door-slide'));
 
-    // allow the wall to animate back into place
+    // let the wall fade/scale back into place
     setTimeout(() => {
       scene.classList.remove('room-open-1', 'room-open-2', 'room-open-3', 'room-open-4');
       roomOverlay.setAttribute('aria-hidden', 'true');
 
-      // resume slideshow for landing page
+      // Resume slideshow for the landing page again
       slideshowFrozen = false;
       startSlideshow();
 
       isTransitioning = false;
-    }, 650);
+    }, 600);
   });
 });
-
